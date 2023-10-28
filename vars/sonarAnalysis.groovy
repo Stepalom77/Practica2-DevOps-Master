@@ -1,5 +1,5 @@
 def call(boolean abortPipeline = false, def scannerHome) {
-    withSonarQubeEnv(credentialsId: 'Sonar Token') {
+    withSonarQubeEnv(credentialsId: 'sonar-token') {
         sh "${scannerHome}/bin/sonar-scanner"
         timeout(time: 5, unit: 'MINUTES') {
             script {
