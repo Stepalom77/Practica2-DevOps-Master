@@ -4,8 +4,7 @@ def call(boolean abortPipeline = false, def scannerHome) {
             sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Threepoints_test \
                 -Dsonar.sources=. \
                 -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.token=sqp_efae856826fa4b699a9c2ddbe39c2f613a492734 \ 
-                -Dsonar.javascript.enabled=false"
+                -Dsonar.token=sqp_efae856826fa4b699a9c2ddbe39c2f613a492734 -Dsonar.javascript.enabled=false"
             timeout(time: 5, unit: 'MINUTES') {
                 script {
                     def qualityGate = waitForQualityGate()
