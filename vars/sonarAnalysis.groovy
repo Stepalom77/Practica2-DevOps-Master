@@ -11,8 +11,10 @@ def call(boolean abortPipeline = false, def scannerHome, String branch = '') {
                     if(qualityGate.status != 'OK') {
                         if(abortPipeline) {
                             error "Gate failed ${qualityGate.status}"
+                            echo "Pipeline Abort"
                         } else if(branch == 'main' || branch.startsWith('hotfix')) {
                             error "Gate failed ${qualityGate.status}"
+                            "Wrong Branch"
                         }
                     }
                 }
