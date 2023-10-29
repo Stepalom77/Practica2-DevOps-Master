@@ -1,4 +1,4 @@
-def call(boolean abortPipeline = false, def scannerHome) {
+def call(boolean abortPipeline = false, def scannerHome, String branch = '') {
     try {
         withSonarQubeEnv(credentialsId: 'sonar-token') {
             sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Threepoints_test \
@@ -10,6 +10,8 @@ def call(boolean abortPipeline = false, def scannerHome) {
                     def qualityGate = waitForQualityGate()
                     if(qualityGate.status != 'OK') {
                         if(abortPipeline) {
+                            error "Gate failed ${qualityGate.status}"
+                        } else if(branch == 'main' || branch.startsWith('hotfix')) {
                             error "Gate failed ${qualityGate.status}"
                         }
                     }
